@@ -36,8 +36,8 @@ bhx = Variable(torch.zeros(X_dim), requires_grad=True)
 
 
 def G(z):
-    h = nn.relu(z @ Wzh + bzh.repeat(z.size(0), 1))
-    X = nn.sigmoid(h @ Whx + bhx.repeat(h.size(0), 1))
+    h = nn.relu(torch.mm(z, Wzh) + bzh.repeat(z.size(0), 1))
+    X = nn.sigmoid(torch.mm(h, Whx) + bhx.repeat(h.size(0), 1))
     return X
 
 
@@ -51,8 +51,8 @@ bhy = Variable(torch.zeros(1), requires_grad=True)
 
 
 def D(X):
-    h = nn.relu(X @ Wxh + bxh.repeat(X.size(0), 1))
-    y = nn.sigmoid(h @ Why + bhy.repeat(h.size(0), 1))
+    h = nn.relu(torch.mm(X, Wxh) + bxh.repeat(X.size(0), 1))
+    y = nn.sigmoid(torch.mm(h, Why) + bhy.repeat(h.size(0), 1))
     return y
 
 
